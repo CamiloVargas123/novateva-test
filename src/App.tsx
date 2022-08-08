@@ -1,33 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.scss'
+import { Box, Divider, Flex, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react'
+import Header from './layout/Header/Header'
+import { useForm } from "react-hook-form"
+import Info from './components/Form/Info'
+import Atrubutes from './components/Form/Atrubutes'
 
+export interface regirterUser {
+  name: string
+  description: string
+}
 function App() {
-  const [count, setCount] = useState(0)
+  const { register, handleSubmit } = useForm<regirterUser>()
+
+  const onSubmit = (data: regirterUser) => {
+    console.log(data)
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Header />
+      <Flex padding={5} gap={6} flexDir="column">
+        <Info register={register} />
+        <Divider opacity={1}/>
+        <Atrubutes register={register} />
+      </Flex>
+    </form>
   )
 }
 
